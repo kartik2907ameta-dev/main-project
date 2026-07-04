@@ -1,797 +1,695 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GITS College — Empowering Future Leaders</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --navy-deep:#0A2647;
-    --navy-mid:#123B6E;
-    --navy-ink:#0B1F38;
-    --sky:#4FC3F7;
-    --sky-deep:#1EA7E0;
-    --sky-light:#EAF7FE;
-    --lawn:#2F9E52;
-    --lawn-light:#DCF3E4;
-    --white:#FFFFFF;
-    --paper:#F6F8FA;
-    --slate:#5B6B80;
-    --slate-light:#8DA0B5;
-    --line: rgba(10,38,71,0.08);
-    --shadow: 0 20px 50px -20px rgba(10,38,71,0.25);
-    --shadow-sm: 0 10px 24px -12px rgba(10,38,71,0.18);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shree Wedding Kalash — Premium Rajasthani Wedding Decor</title>
 
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Inter',sans-serif;
-    color:var(--navy-ink);
-    background:var(--white);
-    -webkit-font-smoothing:antialiased;
-  }
-  img{max-width:100%;display:block;}
-  a{text-decoration:none;color:inherit;}
-  ul{list-style:none;}
-  button{font-family:inherit;border:none;cursor:pointer;background:none;}
-  .wrap{max-width:1240px;margin:0 auto;padding:0 40px;}
-  .eyebrow{
-    font-size:12.5px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    font-weight:700;
-    color:var(--sky-deep);
-  }
-  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;color:var(--navy-deep);}
+  <!-- React (CDN, no build) -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
-  /* ===================== NAVBAR ===================== */
-  header.nav{
-    position:sticky;top:0;z-index:100;
-    background:rgba(255,255,255,0.92);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  /* Avoid sticky header covering anchors */
-  [id]{scroll-margin-top:92px;}
-  .nav-inner{
-    max-width:1240px;margin:0 auto;padding:0 40px;
-    height:78px;display:flex;align-items:center;justify-content:space-between;gap:32px;
-  }
-  .logo{display:flex;align-items:center;gap:10px;}
-  .logo-mark{
-    width:38px;height:38px;border-radius:10px;
-    background:linear-gradient(155deg,var(--navy-deep),var(--navy-mid));
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 6px 14px -6px rgba(10,38,71,0.5);
-    flex-shrink:0;
-  }
-  .logo-mark svg{width:20px;height:20px;}
-  .logo-text{display:flex;flex-direction:column;line-height:1.05;}
-  .logo-text .name{font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:var(--navy-deep);letter-spacing:-0.01em;}
-  .logo-text .tag{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--slate-light);font-weight:600;}
+  <!-- Babel (for in-browser JSX) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  nav.primary{display:flex;align-items:center;gap:2px;}
-  nav.primary > a{
-    position:relative;
-    padding:10px 16px;
-    font-size:14.5px;font-weight:600;color:var(--navy-mid);
-    display:flex;align-items:center;gap:5px;
-    border-radius:8px;
-    transition:background .15s,color .15s;
-  }
-  nav.primary > a:hover{background:var(--sky-light);color:var(--navy-deep);}
-  nav.primary > a svg{width:11px;height:11px;opacity:0.6;margin-top:1px;}
+  <!-- Tailwind (CDN, no build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  .nav-right{display:flex;align-items:center;gap:14px;}
-  .icon-btn{
-    width:40px;height:40px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    border:1px solid var(--line);color:var(--navy-mid);
-    transition:border-color .15s,background .15s;
-  }
-  .icon-btn:hover{background:var(--sky-light);border-color:var(--sky);}
-  .icon-btn svg{width:17px;height:17px;}
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    font-weight:700;font-size:14px;
-    padding:12px 24px;border-radius:999px;
-    transition:transform .15s, box-shadow .15s, background .15s;
-    white-space:nowrap;
-  }
-  .btn-navy{background:var(--navy-deep);color:var(--white);box-shadow:0 10px 20px -8px rgba(10,38,71,0.55);}
-  .btn-navy:hover{background:var(--navy-mid);transform:translateY(-1px);}
-  .btn-sky{background:var(--sky);color:var(--navy-deep);box-shadow:0 10px 24px -8px rgba(79,195,247,0.7);}
-  .btn-sky:hover{background:var(--sky-deep);transform:translateY(-1px);}
-  .btn-ghost-light{background:rgba(255,255,255,0.12);color:var(--white);border:1px solid rgba(255,255,255,0.5);}
-  .btn-ghost-light:hover{background:rgba(255,255,255,0.22);}
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  /* ===================== HERO ===================== */
-  .hero{
-    position:relative;
-    min-height:88vh;
-    display:flex;
-    align-items:flex-end;
-    overflow:hidden;
-    background:linear-gradient(180deg,#0d2c52 0%, #123b6e 55%, #0a2647 100%);
-  }
-  .hero-illustration{position:absolute;inset:0;width:100%;height:100%;}
-  .hero-illustration svg{width:100%;height:100%;display:block;}
-  .hero-scrim{
-    position:absolute;inset:0;
-    background:linear-gradient(90deg, rgba(9,25,48,0.88) 0%, rgba(9,25,48,0.62) 38%, rgba(9,25,48,0.12) 70%, rgba(9,25,48,0.35) 100%);
-  }
-  .hero-content{
-    position:relative;z-index:2;
-    max-width:1240px;margin:0 auto;padding:0 40px 76px;
-    width:100%;
-  }
-  .hero-badge{
-    display:inline-flex;align-items:center;gap:8px;
-    background:rgba(255,255,255,0.1);
-    border:1px solid rgba(255,255,255,0.28);
-    padding:7px 14px 7px 10px;border-radius:999px;
-    font-size:12.5px;font-weight:600;color:var(--sky);
-    letter-spacing:0.03em;
-    margin-bottom:26px;
-  }
-  .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--sky);box-shadow:0 0 0 4px rgba(79,195,247,0.25);}
-  .hero h1{
-    color:var(--white);
-    font-size:clamp(38px,5.4vw,66px);
-    line-height:1.06;
-    max-width:760px;
-    font-weight:600;
-    margin-bottom:22px;
-  }
-  .hero h1 em{font-style:normal;color:var(--sky);}
-  .hero p.lede{
-    color:rgba(255,255,255,0.78);
-    font-size:17px;line-height:1.6;
-    max-width:520px;
-    margin-bottom:34px;
-    font-weight:400;
-  }
-  .hero-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:56px;}
-  .hero-actions .link-inline{
-    color:var(--white);font-weight:600;font-size:14.5px;
-    display:flex;align-items:center;gap:8px;
-    border-bottom:1px solid rgba(255,255,255,0.4);
-    padding-bottom:2px;
-  }
-  .hero-stats{
-    display:flex;gap:0;
-    border-top:1px solid rgba(255,255,255,0.18);
-    padding-top:26px;
-    max-width:640px;
-  }
-  .hero-stats .stat{padding-right:34px;margin-right:34px;border-right:1px solid rgba(255,255,255,0.18);}
-  .hero-stats .stat:last-child{border-right:none;margin-right:0;padding-right:0;}
-  .hero-stats .stat .num{font-family:'Fraunces',serif;color:var(--white);font-size:26px;font-weight:600;}
-  .hero-stats .stat .lbl{color:rgba(255,255,255,0.65);font-size:12.5px;margin-top:2px;font-weight:500;}
+  <style>
+    html{scroll-behavior:smooth;}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;}
+    h1,h2,h3{font-family:Fraunces,serif;}
+    [data-section]{scroll-margin-top:92px;}
+  </style>
 
-  /* ===================== QUICK LINKS ===================== */
-  .quicklinks{padding:96px 0 92px;background:var(--white);}
-  .section-head{
-    display:flex;align-items:flex-end;justify-content:space-between;
-    margin-bottom:44px;gap:24px;flex-wrap:wrap;
-  }
-  .section-head h2{font-size:clamp(28px,3vw,38px);}
-  .section-head .desc{color:var(--slate);font-size:15px;max-width:420px;margin-top:10px;line-height:1.55;}
-
-  .ql-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
-  .ql-card{
-    border-radius:18px;overflow:hidden;
-    background:var(--paper);
-    border:1px solid var(--line);
-    box-shadow:var(--shadow-sm);
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .ql-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
-  .ql-media{
-    height:168px;position:relative;
-    display:flex;align-items:center;justify-content:center;
-    overflow:hidden;
-  }
-  .ql-media svg{width:56px;height:56px;position:relative;z-index:1;}
-  .ql-media::before{
-    content:"";position:absolute;inset:0;
-    opacity:0.9;
-  }
-  .ql-card:nth-child(1) .ql-media{background:linear-gradient(150deg,#E9F7FF,#C9ECFB);}
-  .ql-card:nth-child(2) .ql-media{background:linear-gradient(150deg,#EDF2FA,#D7E3F5);}
-  .ql-card:nth-child(3) .ql-media{background:linear-gradient(150deg,#E7F8EE,#CDEFDB);}
-  .ql-card:nth-child(4) .ql-media{background:linear-gradient(150deg,#FFF3E4,#FCE4C7);}
-  .ql-media .ring{
-    position:absolute;width:220px;height:220px;border-radius:50%;
-    border:1px solid rgba(10,38,71,0.08);
-  }
-  .ql-foot{
-    background:var(--navy-deep);color:var(--white);
-    padding:16px 20px;
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .ql-foot .title{font-weight:700;font-size:14.5px;}
-  .ql-foot svg{width:15px;height:15px;opacity:0.75;transition:transform .2s;}
-  .ql-card:hover .ql-foot svg{transform:translateX(4px);}
-
-  /* ===================== NEWS ===================== */
-  .news{padding:92px 0;background:var(--paper);}
-  .slider-controls{display:flex;gap:10px;}
-  .slider-controls button{
-    width:42px;height:42px;border-radius:50%;
-    border:1px solid var(--line);background:var(--white);
-    display:flex;align-items:center;justify-content:center;
-    color:var(--navy-deep);transition:background .15s,border-color .15s;
-  }
-  .slider-controls button:hover{background:var(--sky-light);border-color:var(--sky);}
-  .slider-controls svg{width:16px;height:16px;}
-
-  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
-  .news-card{
-    background:var(--white);border-radius:16px;overflow:hidden;
-    border:1px solid var(--line);
-    box-shadow:var(--shadow-sm);
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .news-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
-  .news-thumb{
-    height:186px;position:relative;overflow:hidden;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .news-card:nth-child(1) .news-thumb{background:linear-gradient(140deg,#123B6E,#0A2647);}
-  .news-card:nth-child(2) .news-thumb{background:linear-gradient(140deg,#1EA7E0,#0A2647);}
-  .news-card:nth-child(3) .news-thumb{background:linear-gradient(140deg,#2F9E52,#0A2647);}
-  .news-thumb svg{width:52px;height:52px;opacity:0.9;}
-  .news-tag{
-    position:absolute;top:14px;left:14px;
-    background:rgba(255,255,255,0.15);
-    border:1px solid rgba(255,255,255,0.35);
-    color:var(--white);font-size:11px;font-weight:700;
-    letter-spacing:0.05em;text-transform:uppercase;
-    padding:5px 10px;border-radius:999px;
-    backdrop-filter:blur(4px);
-  }
-  .news-body{padding:22px 22px 24px;}
-  .news-date{
-    font-size:12.5px;font-weight:600;color:var(--slate-light);
-    letter-spacing:0.02em;margin-bottom:10px;
-    display:flex;align-items:center;gap:6px;
-  }
-  .news-date svg{width:13px;height:13px;}
-  .news-body h3{font-size:19px;line-height:1.35;margin-bottom:14px;font-weight:600;}
-  .read-more{
-    font-size:13.5px;font-weight:700;color:var(--sky-deep);
-    display:inline-flex;align-items:center;gap:6px;
-  }
-  .read-more svg{width:13px;height:13px;transition:transform .15s;}
-  .news-card:hover .read-more svg{transform:translateX(3px);}
-
-  /* ===================== CTA STRIP ===================== */
-  .cta-strip{
-    background:linear-gradient(120deg,var(--navy-deep),var(--navy-mid));
-    padding:64px 0;
-  }
-  .cta-inner{
-    display:flex;align-items:center;justify-content:space-between;
-    gap:28px;flex-wrap:wrap;
-  }
-  .cta-inner h2{color:var(--white);font-size:clamp(24px,2.6vw,32px);max-width:520px;}
-  .cta-inner p{color:rgba(255,255,255,0.7);margin-top:8px;font-size:14.5px;max-width:480px;}
-
-  /* ===================== FOOTER ===================== */
-  footer{background:var(--navy-ink);color:rgba(255,255,255,0.72);padding-top:76px;}
-  .footer-top{
-    display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;
-    padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,0.1);
-  }
-  .footer-brand .logo-text .name{color:var(--white);}
-  .footer-brand p{margin-top:16px;font-size:14px;line-height:1.65;max-width:280px;color:rgba(255,255,255,0.55);}
-  .social-row{display:flex;gap:10px;margin-top:22px;}
-  .social-row a{
-    width:38px;height:38px;border-radius:50%;
-    border:1px solid rgba(255,255,255,0.18);
-    display:flex;align-items:center;justify-content:center;
-    transition:background .15s,border-color .15s;
-  }
-  .social-row a:hover{background:var(--sky);border-color:var(--sky);color:var(--navy-deep);}
-  .social-row svg{width:16px;height:16px;}
-
-  .footer-col h4{
-    color:var(--white);font-size:13px;font-weight:700;
-    letter-spacing:0.06em;text-transform:uppercase;margin-bottom:18px;
-  }
-  .footer-col ul li{margin-bottom:12px;}
-  .footer-col a{font-size:14.5px;color:rgba(255,255,255,0.62);transition:color .15s;}
-  .footer-col a:hover{color:var(--sky);}
-
-  .map-block{
-    border-radius:14px;overflow:hidden;
-    border:1px solid rgba(255,255,255,0.12);
-    height:150px;position:relative;
-    background:linear-gradient(150deg,#123B6E,#0A2647);
-    display:flex;align-items:center;justify-content:center;
-    margin-top:18px;
-  }
-  .map-block svg{width:36px;height:36px;}
-  .map-block .grid-overlay{position:absolute;inset:0;opacity:0.15;}
-
-  .footer-bottom{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:26px 0;flex-wrap:wrap;gap:12px;
-    font-size:13px;color:rgba(255,255,255,0.45);
-  }
-  .footer-bottom .legal-links{display:flex;gap:22px;}
-  .footer-bottom .legal-links a{color:rgba(255,255,255,0.45);}
-  .footer-bottom .legal-links a:hover{color:var(--sky);}
-
-  @media(max-width:1080px){
-    .ql-grid{grid-template-columns:repeat(2,1fr);}
-    .news-grid{grid-template-columns:repeat(2,1fr);}
-    .footer-top{grid-template-columns:1fr 1fr;}
-    nav.primary{display:none;}
-  }
-  @media(max-width:640px){
-    .wrap,.nav-inner,.hero-content{padding-left:20px;padding-right:20px;}
-    .ql-grid{grid-template-columns:1fr;}
-    .news-grid{grid-template-columns:1fr;}
-    .footer-top{grid-template-columns:1fr;}
-    .hero-stats{flex-wrap:wrap;gap:20px 0;}
-    .hero-stats .stat{border-right:none;padding-right:0;margin-right:0;width:45%;}
-  }
-</style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            maroon: '#6B0F1A',
+            gold: '#D4AF37',
+            crimson: '#B80C2A',
+            cream: '#FFF7E6'
+          },
+          boxShadow: {
+            royal: '0 20px 60px -20px rgba(107,15,26,0.35)'
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
+<body class="bg-cream text-maroon/95">
+  <div id="root"></div>
 
-<!-- ===================== NAVBAR ===================== -->
-<header class="nav">
-  <div class="nav-inner">
-    <a href="#" class="logo">
-      <span class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 3L2 8l10 5 8-4.2V15h1.5V8L12 3z" fill="#4FC3F7"/>
-          <path d="M6 12v4.2c0 .3.15.55.4.7C7.9 17.8 9.8 19 12 19s4.1-1.2 5.6-2.1c.25-.15.4-.4.4-.7V12l-6 3-6-3z" fill="#FFFFFF" fill-opacity="0.92"/>
-        </svg>
-      </span>
-      <span class="logo-text">
-        <span class="name">GITS College</span>
-        <span class="tag">Est. 1994 · Excellence</span>
-      </span>
-    </a>
+  <script type="text/babel">
+    const { useEffect, useMemo, useRef, useState } = React;
 
-    <nav class="primary">
-      <a href="#about">About Us <svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
-      <a href="#academics">Academics <svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
-      <a href="#admissions">Admissions <svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
-      <a href="#campus">Campus Life <svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
-      <a href="#contact">Contact</a>
-    </nav>
+    const WHATSAPP_NUM = '8290214555';
 
-    <div class="nav-right">
-      <button class="icon-btn" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-      <a href="#" class="btn btn-navy">Contact Us</a>
-    </div>
-  </div>
-</header>
+    const PRODUCTS = [
+      {
+        key: 'chak',
+        img: './images/kalash-pair.jpg',
+        name: { en: 'Chak Kalash', hi: 'चक्र कलश' },
+        tag: { en: 'Traditional', hi: 'पारंपरिक' },
+        desc: {
+          en: 'Handcrafted chak-style Kalash for auspicious ceremonies.',
+          hi: 'शुभ अवसरों के लिए हस्तनिर्मित चक्र-स्टाइल कलश।'
+        }
+      },
+      {
+        key: 'steel',
+        img: './images/kalash-hero.jpg',
+        name: { en: 'Steel Kalash', hi: 'स्टील कलश' },
+        tag: { en: 'Durable', hi: 'मजबूत' },
+        desc: {
+          en: 'Polished steel Kalash with royal finishing for long-lasting use.',
+          hi: 'लंबे समय तक उपयोग के लिए शाही फिनिशिंग वाला पॉलिश्ड स्टील कलश।'
+        }
+      },
+      {
+        key: 'decor',
+        img: './images/kalash-mirror.jpg',
+        name: { en: 'Decorative Wedding Kalash', hi: 'डेकोरेटिव वेडिंग कलश' },
+        tag: { en: 'Mirror & Craft', hi: 'मिरर & शिल्प' },
+        desc: {
+          en: 'Decorative Kalash with rich textures and festive detailing.',
+          hi: 'समृद्ध टेक्सचर और फेस्टिव डिटेलिंग के साथ डेकोरेटिव कलश।'
+        }
+      },
+      {
+        key: 'designer',
+        img: './images/kalash-velvet.jpg',
+        name: { en: 'Customised Designer Kalash', hi: 'कस्टमाइज्ड डिज़ाइनर कलश' },
+        tag: { en: 'Made to Order', hi: 'ऑर्डर पर' },
+        desc: {
+          en: 'Choose your style, color, and finishing — we’ll craft it your way.',
+          hi: 'अपनी स्टाइल, रंग और फिनिशिंग चुनें — हम बनाएँगे आपके अनुसार।'
+        }
+      },
+      {
+        key: 'bulk',
+        img: './images/kalash-pair.jpg',
+        name: { en: 'Bulk Wedding Orders', hi: 'बल्क वेडिंग ऑर्डर' },
+        tag: { en: 'Events', hi: 'इवेंट्स' },
+        desc: {
+          en: 'Need Kalash for multiple functions? Bulk pricing available.',
+          hi: 'एक से अधिक फंक्शन के लिए चाहिए? बल्क प्राइसिंग उपलब्ध है।'
+        }
+      }
+    ];
 
-<!-- ===================== HERO ===================== -->
-<section class="hero">
-  <div class="hero-illustration">
-    <svg viewBox="0 0 1600 760" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#0d2c52"/>
-          <stop offset="100%" stop-color="#1a4a82"/>
-        </linearGradient>
-        <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#2c5c96"/>
-          <stop offset="100%" stop-color="#0f3160"/>
-        </linearGradient>
-        <linearGradient id="glassGrad2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#3a6fac"/>
-          <stop offset="100%" stop-color="#123b6e"/>
-        </linearGradient>
-        <linearGradient id="lawnGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1f7a44"/>
-          <stop offset="100%" stop-color="#155a30"/>
-        </linearGradient>
-      </defs>
+    const T = {
+      en: {
+        nav: { home: 'Home', products: 'Products', gallery: 'Gallery', about: 'About', contact: 'Contact', lang: 'EN' },
+        hero: {
+          badge: 'Royal Rajasthani Wedding Decor',
+          title: 'Shree Wedding Kalash',
+          subtitle: 'Kalash that brings blessings, elegance, and timeless tradition.',
+          cta1: 'View Collection',
+          cta2: 'Order via WhatsApp'
+        },
+        sections: {
+          productsTitle: 'Wedding Kalash Collection',
+          productsDesc: 'Premium handcrafted Kalash — curated for ceremonies, baraat stages, and auspicious entrances.',
+          aboutTitle: 'Heritage in every detail',
+          aboutDesc: 'From craftsmanship to safe packaging, every Kalash is prepared like a royal offering.',
+          galleryTitle: 'Gallery',
+          galleryDesc: 'Real work, real finishing, and royal craftsmanship — scroll to explore.',
+          faqTitle: 'FAQ',
+          contactTitle: 'Contact & Orders',
+          contactDesc: 'Send us your requirement. We’ll respond on WhatsApp with the best options.'
+        },
+        aboutBadges: {
+          handcrafted: 'Handcrafted',
+          authentic: 'Authentically Rajasthani',
+          delivery: 'Safe Delivery'
+        },
+        trustCopy: {
+          p1: 'Designed for auspicious moments and beautiful wedding stages.',
+          p2: 'Customization available for color, texture, and finishing.'
+        },
+        gallery: {
+          comingSoon: 'Coming soon',
+          comingSoonSub: 'Video testimonial / designer walkthrough'
+        },
+        faq: {
+          q1: 'What is the ordering process?',
+          a1: 'Tap “Order via WhatsApp”. Share your event date, quantity, and preferred style. We’ll confirm availability and delivery timeline.',
+          q2: 'Do you provide customization?',
+          a2: 'Yes. Colors, finishing, and details can be customised based on your requirement.',
+          q3: 'How do you ship and ensure safety?',
+          a3: 'Each Kalash is packed carefully for safe delivery. We share packing and tracking updates on request.',
+          q4: 'What about bulk wedding orders?',
+          a4: 'Bulk orders are welcome. Share function count and quantity — we’ll provide pricing and scheduling.'
+        },
+        contact: {
+          name: 'Name',
+          phone: 'Phone',
+          message: 'Message',
+          send: 'Send',
+          callNow: 'Call Now',
+          mapHint: 'Map: Bhindar, Udaipur'
+        },
+        footer: {
+          tagline: 'Made with ❤ in Rajasthan',
+          address: 'Bhindar, Udaipur — Rajasthan',
+          phone: '+91 82902 14555'
+        }
+      },
+      hi: {
+        nav: { home: 'होम', products: 'प्रोडक्ट्स', gallery: 'गैलरी', about: 'हमारे बारे में', contact: 'संपर्क', lang: 'हि' },
+        hero: {
+          badge: 'शाही राजस्थानी वेडिंग डेकोर',
+          title: 'श्री वेडिंग कलश',
+          subtitle: 'कलश जो आशीर्वाद, शान और सदाबहार परंपरा लाता है।',
+          cta1: 'कलेक्शन देखें',
+          cta2: 'WhatsApp से ऑर्डर'
+        },
+        sections: {
+          productsTitle: 'वेडिंग कलश कलेक्शन',
+          productsDesc: 'प्रीमियम हस्तनिर्मित कलश — सेरेमनी, बारात स्टेज और शुभ प्रवेश के लिए।',
+          aboutTitle: 'हर डिटेल में विरासत',
+          aboutDesc: 'क्राफ्ट्समैनशिप से लेकर सेफ पैकिंग तक — हर कलश को शाही तरीके से तैयार किया जाता है।',
+          galleryTitle: 'गैलरी',
+          galleryDesc: 'रियल वर्क, रियल फिनिशिंग और शाही क्राफ्ट — नीचे स्क्रॉल करें।',
+          faqTitle: 'FAQ',
+          contactTitle: 'संपर्क & ऑर्डर',
+          contactDesc: 'अपनी जरूरत लिखें। हम WhatsApp पर सबसे अच्छे विकल्प भेजेंगे।'
+        },
+        aboutBadges: {
+          handcrafted: 'हस्तनिर्मित',
+          authentic: 'पूरी तरह राजस्थानी',
+          delivery: 'सेफ डिलीवरी'
+        },
+        trustCopy: {
+          p1: 'शुभ मौकों और खूबसूरत वेडिंग स्टेज के लिए डिज़ाइन किया गया।',
+          p2: 'रंग, टेक्सचर और फिनिशिंग में कस्टमाइजेशन उपलब्ध है।'
+        },
+        gallery: {
+          comingSoon: 'जल्द आएगा',
+          comingSoonSub: 'वीडियो टेस्टिमोनियल / डिज़ाइन वॉकथ्रू'
+        },
+        faq: {
+          q1: 'ऑर्डर करने की प्रक्रिया क्या है?',
+          a1: '“WhatsApp से ऑर्डर” पर टैप करें। इवेंट डेट, मात्रा और पसंदीदा स्टाइल बताएं। हम उपलब्धता और डिलीवरी टाइमलाइन कन्फर्म करेंगे।',
+          q2: 'क्या आप कस्टमाइज करते हैं?',
+          a2: 'हाँ। आपके अनुसार रंग, फिनिशिंग और डिटेल्स कस्टमाइज की जा सकती हैं।',
+          q3: 'शिपिंग और सेफ्टी कैसे होती है?',
+          a3: 'हर कलश को सावधानी से पैक किया जाता है ताकि सुरक्षित डिलीवरी हो। चाहें तो हम पैकिंग और ट्रैकिंग अपडेट साझा करेंगे।',
+          q4: 'बल्क वेडिंग ऑर्डर?',
+          a4: 'बल्क ऑर्डर स्वागत योग्य हैं। फंक्शन्स की संख्या और मात्रा बताएं — हम प्राइसिंग और शेड्यूलिंग देंगे।'
+        },
+        contact: {
+          name: 'नाम',
+          phone: 'फोन',
+          message: 'मैसेज',
+          send: 'भेजें',
+          callNow: 'कॉल करें',
+          mapHint: 'मैप: भिंडार, उदयपुर'
+        },
+        footer: {
+          tagline: '❤ के साथ राजस्थान में बना',
+          address: 'भिंडार, उदयपुर — राजस्थान',
+          phone: '+91 82902 14555'
+        }
+      }
+    };
 
-      <rect width="1600" height="760" fill="url(#skyGrad)"/>
+    const Icon = ({ name, className = '' }) => {
+      const common = { className: `inline-block ${className}`, viewBox: '0 0 24 24', fill: 'none', xmlns: 'http://www.w3.org/2000/svg' };
+      const stroke = 'currentColor';
+      const sw = 1.8;
+      const lcap = 'round';
+      const ljoin = 'round';
 
-      <!-- sun glow -->
-      <circle cx="1300" cy="120" r="220" fill="#4FC3F7" opacity="0.10"/>
-
-      <!-- back building block -->
-      <g opacity="0.85">
-        <rect x="120" y="230" width="230" height="330" fill="url(#glassGrad)"/>
-        <g fill="#4FC3F7" opacity="0.35">
-          <rect x="140" y="250" width="18" height="24"/><rect x="168" y="250" width="18" height="24"/><rect x="196" y="250" width="18" height="24"/><rect x="224" y="250" width="18" height="24"/><rect x="252" y="250" width="18" height="24"/><rect x="280" y="250" width="18" height="24"/><rect x="308" y="250" width="18" height="24"/>
-          <rect x="140" y="290" width="18" height="24"/><rect x="168" y="290" width="18" height="24"/><rect x="196" y="290" width="18" height="24"/><rect x="224" y="290" width="18" height="24"/><rect x="252" y="290" width="18" height="24"/><rect x="280" y="290" width="18" height="24"/><rect x="308" y="290" width="18" height="24"/>
-          <rect x="140" y="330" width="18" height="24"/><rect x="168" y="330" width="18" height="24"/><rect x="196" y="330" width="18" height="24"/><rect x="224" y="330" width="18" height="24"/><rect x="252" y="330" width="18" height="24"/><rect x="280" y="330" width="18" height="24"/><rect x="308" y="330" width="18" height="24"/>
-          <rect x="140" y="370" width="18" height="24"/><rect x="168" y="370" width="18" height="24"/><rect x="196" y="370" width="18" height="24"/><rect x="224" y="370" width="18" height="24"/><rect x="252" y="370" width="18" height="24"/><rect x="280" y="370" width="18" height="24"/><rect x="308" y="370" width="18" height="24"/>
-        </g>
-      </g>
-
-      <!-- main glass tower -->
-      <g>
-        <rect x="380" y="120" width="420" height="440" fill="url(#glassGrad2)"/>
-        <rect x="380" y="120" width="420" height="10" fill="#4FC3F7" opacity="0.6"/>
-        <g fill="#8fd8f7" opacity="0.28">
-          <!-- window grid generated manually -->
-          <rect x="400" y="150" width="26" height="34"/><rect x="436" y="150" width="26" height="34"/><rect x="472" y="150" width="26" height="34"/><rect x="508" y="150" width="26" height="34"/><rect x="544" y="150" width="26" height="34"/><rect x="580" y="150" width="26" height="34"/><rect x="616" y="150" width="26" height="34"/><rect x="652" y="150" width="26" height="34"/><rect x="688" y="150" width="26" height="34"/><rect x="724" y="150" width="26" height="34"/><rect x="760" y="150" width="26" height="34"/>
-          <rect x="400" y="196" width="26" height="34"/><rect x="436" y="196" width="26" height="34"/><rect x="472" y="196" width="26" height="34"/><rect x="508" y="196" width="26" height="34"/><rect x="544" y="196" width="26" height="34"/><rect x="580" y="196" width="26" height="34"/><rect x="616" y="196" width="26" height="34"/><rect x="652" y="196" width="26" height="34"/><rect x="688" y="196" width="26" height="34"/><rect x="724" y="196" width="26" height="34"/><rect x="760" y="196" width="26" height="34"/>
-          <rect x="400" y="242" width="26" height="34"/><rect x="436" y="242" width="26" height="34"/><rect x="472" y="242" width="26" height="34"/><rect x="508" y="242" width="26" height="34"/><rect x="544" y="242" width="26" height="34"/><rect x="580" y="242" width="26" height="34"/><rect x="616" y="242" width="26" height="34"/><rect x="652" y="242" width="26" height="34"/><rect x="688" y="242" width="26" height="34"/><rect x="724" y="242" width="26" height="34"/><rect x="760" y="242" width="26" height="34"/>
-          <rect x="400" y="288" width="26" height="34"/><rect x="436" y="288" width="26" height="34"/><rect x="472" y="288" width="26" height="34"/><rect x="508" y="288" width="26" height="34"/><rect x="544" y="288" width="26" height="34"/><rect x="580" y="288" width="26" height="34"/><rect x="616" y="288" width="26" height="34"/><rect x="652" y="288" width="26" height="34"/><rect x="688" y="288" width="26" height="34"/><rect x="724" y="288" width="26" height="34"/><rect x="760" y="288" width="26" height="34"/>
-          <rect x="400" y="334" width="26" height="34"/><rect x="436" y="334" width="26" height="34"/><rect x="472" y="334" width="26" height="34"/><rect x="508" y="334" width="26" height="34"/><rect x="544" y="334" width="26" height="34"/><rect x="580" y="334" width="26" height="34"/><rect x="616" y="334" width="26" height="34"/><rect x="652" y="334" width="26" height="34"/><rect x="688" y="334" width="26" height="34"/><rect x="724" y="334" width="26" height="34"/><rect x="760" y="334" width="26" height="34"/>
-          <rect x="400" y="380" width="26" height="34"/><rect x="436" y="380" width="26" height="34"/><rect x="472" y="380" width="26" height="34"/><rect x="508" y="380" width="26" height="34"/><rect x="544" y="380" width="26" height="34"/><rect x="580" y="380" width="26" height="34"/><rect x="616" y="380" width="26" height="34"/><rect x="652" y="380" width="26" height="34"/><rect x="688" y="380" width="26" height="34"/><rect x="724" y="380" width="26" height="34"/><rect x="760" y="380" width="26" height="34"/>
-          <rect x="400" y="426" width="26" height="34"/><rect x="436" y="426" width="26" height="34"/><rect x="472" y="426" width="26" height="34"/><rect x="508" y="426" width="26" height="34"/><rect x="544" y="426" width="26" height="34"/><rect x="580" y="426" width="26" height="34"/><rect x="616" y="426" width="26" height="34"/><rect x="652" y="426" width="26" height="34"/><rect x="688" y="426" width="26" height="34"/><rect x="724" y="426" width="26" height="34"/><rect x="760" y="426" width="26" height="34"/>
-        </g>
-        <!-- entrance -->
-        <rect x="560" y="500" width="100" height="60" fill="#0a2647" opacity="0.7"/>
-      </g>
-
-      <!-- right lower building -->
-      <g opacity="0.9">
-        <rect x="850" y="330" width="260" height="230" fill="url(#glassGrad)"/>
-        <g fill="#4FC3F7" opacity="0.3">
-          <rect x="870" y="350" width="20" height="26"/><rect x="900" y="350" width="20" height="26"/><rect x="930" y="350" width="20" height="26"/><rect x="960" y="350" width="20" height="26"/><rect x="990" y="350" width="20" height="26"/><rect x="1020" y="350" width="20" height="26"/><rect x="1050" y="350" width="20" height="26"/><rect x="1080" y="350" width="20" height="26"/>
-          <rect x="870" y="390" width="20" height="26"/><rect x="900" y="390" width="20" height="26"/><rect x="930" y="390" width="20" height="26"/><rect x="960" y="390" width="20" height="26"/><rect x="990" y="390" width="20" height="26"/><rect x="1020" y="390" width="20" height="26"/><rect x="1050" y="390" width="20" height="26"/><rect x="1080" y="390" width="20" height="26"/>
-          <rect x="870" y="430" width="20" height="26"/><rect x="900" y="430" width="20" height="26"/><rect x="930" y="430" width="20" height="26"/><rect x="960" y="430" width="20" height="26"/><rect x="990" y="430" width="20" height="26"/><rect x="1020" y="430" width="20" height="26"/><rect x="1050" y="430" width="20" height="26"/><rect x="1080" y="430" width="20" height="26"/>
-        </g>
-      </g>
-
-      <!-- distant small building -->
-      <rect x="1130" y="410" width="150" height="150" fill="url(#glassGrad2)" opacity="0.7"/>
-
-      <!-- lawn -->
-      <path d="M0 560 Q 400 520 800 555 T 1600 545 L1600 760 L0 760 Z" fill="url(#lawnGrad)"/>
-      <path d="M0 560 Q 400 520 800 555 T 1600 545" fill="none" stroke="#3fbf6f" stroke-width="3" opacity="0.5"/>
-
-      <!-- path -->
-      <path d="M700 760 C 730 660 760 610 820 560" fill="none" stroke="#e8e2cf" stroke-width="26" opacity="0.18"/>
-
-      <!-- students (abstracted) sitting group -->
-      <g>
-        <!-- student 1 -->
-        <g transform="translate(560,600)">
-          <ellipse cx="20" cy="46" rx="34" ry="7" fill="#083019" opacity="0.25"/>
-          <rect x="4" y="14" width="32" height="30" rx="10" fill="#FDD9A0"/>
-          <circle cx="20" cy="4" r="12" fill="#3B2A20"/>
-          <rect x="-6" y="30" width="20" height="13" rx="3" fill="#0A2647"/>
-        </g>
-        <!-- student 2 -->
-        <g transform="translate(615,615)">
-          <ellipse cx="18" cy="42" rx="30" ry="6" fill="#083019" opacity="0.25"/>
-          <rect x="2" y="12" width="30" height="28" rx="10" fill="#4FC3F7"/>
-          <circle cx="18" cy="2" r="11" fill="#5A3D2B"/>
-          <rect x="-8" y="26" width="18" height="12" rx="3" fill="#0A2647"/>
-        </g>
-        <!-- student 3 -->
-        <g transform="translate(680,608)">
-          <ellipse cx="20" cy="46" rx="34" ry="7" fill="#083019" opacity="0.25"/>
-          <rect x="4" y="14" width="32" height="30" rx="10" fill="#F4A65B"/>
-          <circle cx="20" cy="4" r="12" fill="#1E1B18"/>
-          <rect x="20" y="30" width="20" height="13" rx="3" fill="#EAF7FE"/>
-        </g>
-        <!-- student 4 -->
-        <g transform="translate(745,620)">
-          <ellipse cx="16" cy="38" rx="26" ry="6" fill="#083019" opacity="0.22"/>
-          <rect x="2" y="10" width="28" height="26" rx="9" fill="#0A2647"/>
-          <circle cx="16" cy="0" r="10" fill="#C89B7B"/>
-        </g>
-      </g>
-
-      <!-- open laptop/book icons near students -->
-      <g fill="#EAF7FE" opacity="0.9">
-        <rect x="640" y="640" width="30" height="4" rx="2"/>
-        <rect x="700" y="648" width="26" height="4" rx="2"/>
-      </g>
-    </svg>
-  </div>
-  <div class="hero-scrim"></div>
-
-  <div class="hero-content">
-    <span class="hero-badge"><span class="dot"></span>Admissions Open for Fall 2026</span>
-    <h1>Welcome to GITS College<br><em>Empowering Future Leaders</em></h1>
-    <p class="lede">A premium learning environment where academic rigor meets real-world practice — built for students who intend to lead, not just graduate.</p>
-    <div class="hero-actions">
-      <a href="#" class="btn btn-sky">Explore Our Programs</a>
-      <a href="#" class="link-inline">
-        Watch Campus Tour
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.4"/><path d="M10 8l6 4-6 4V8z" fill="white"/></svg>
-      </a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="num">28,000+</div><div class="lbl">Enrolled Students</div></div>
-      <div class="stat"><div class="num">96%</div><div class="lbl">Placement Rate</div></div>
-      <div class="stat"><div class="num">140+</div><div class="lbl">Degree Programs</div></div>
-      <div class="stat"><div class="num">32</div><div class="lbl">Years of Excellence</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== ABOUT ===================== -->
-<section id="about" class="quicklinks">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Get Involved</span>
-        <h2 style="margin-top:8px;">Life at GITS goes beyond the classroom</h2>
-      </div>
-      <p class="desc">Four doorways into the GITS experience — pick where you want to start.</p>
-    </div>
-
-    <div class="ql-grid">
-      <div class="ql-card">
-        <div class="ql-media">
-          <span class="ring"></span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4-8 4-8-4 8-4z" stroke="#123B6E" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" stroke="#123B6E" stroke-width="1.6"/></svg>
-        </div>
-        <div class="ql-foot">
-          <span class="title">Student Activities</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-
-      <div class="ql-card">
-        <div class="ql-media">
-          <span class="ring"></span>
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.2" stroke="#123B6E" stroke-width="1.6"/><path d="M12 3v3M12 18v3M21 12h-3M6 12H3M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7L5.6 5.6" stroke="#123B6E" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </div>
-        <div class="ql-foot">
-          <span class="title">Faculty &amp; Research</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-
-      <div class="ql-card">
-        <div class="ql-media">
-          <span class="ring"></span>
-          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="16" height="12" rx="2" stroke="#1a7a3d" stroke-width="1.6"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#1a7a3d" stroke-width="1.6"/></svg>
-        </div>
-        <div class="ql-foot">
-          <span class="title">Career Services</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-
-      <div class="ql-card">
-        <div class="ql-media">
-          <span class="ring"></span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.9L22 9l-5.6 4.6L18 21l-6-4-6 4 1.6-7.4L2 9l7.6-.1L12 2z" stroke="#a3660f" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="ql-foot">
-          <span class="title">Alumni Success</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== ACADEMICS ===================== -->
-<section id="academics" class="news">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Newsroom</span>
-        <h2 style="margin-top:8px;">Latest News</h2>
-      </div>
-      <div class="slider-controls">
-        <button aria-label="Previous"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button aria-label="Next"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      </div>
-    </div>
-
-    <div class="news-grid">
-      <article class="news-card">
-        <div class="news-thumb">
-          <span class="news-tag">Research</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M9 3v4M15 3v4M4 8h16M5 8v11a2 2 0 002 2h10a2 2 0 002-2V8" stroke="white" stroke-width="1.5"/></svg>
-        </div>
-        <div class="news-body">
-          <div class="news-date"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.4"/></svg> June 18, 2026</div>
-          <h3>GITS Researchers Publish Breakthrough on Sustainable Materials</h3>
-          <a href="#" class="read-more">Read more <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-
-      <article class="news-card">
-        <div class="news-thumb">
-          <span class="news-tag">Admissions</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h8l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="white" stroke-width="1.5"/><path d="M14 4v6h6" stroke="white" stroke-width="1.5"/></svg>
-        </div>
-        <div class="news-body">
-          <div class="news-date"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.4"/></svg> June 12, 2026</div>
-          <h3>Fall 2026 Applications Now Open — Here's What's New</h3>
-          <a href="#" class="read-more">Read more <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-
-      <article class="news-card">
-        <div class="news-thumb">
-          <span class="news-tag">Campus Life</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-6 8 6v12" stroke="white" stroke-width="1.5"/><path d="M9 21v-6h6v6" stroke="white" stroke-width="1.5"/></svg>
-        </div>
-        <div class="news-body">
-          <div class="news-date"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.4"/></svg> June 5, 2026</div>
-          <h3>New Student Union Building Opens on North Campus</h3>
-          <a href="#" class="read-more">Read more <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== ADMISSIONS ===================== -->
-<section id="admissions" class="cta-strip">
-  <div class="wrap cta-inner">
-    <div>
-      <h2>Ready to see the campus for yourself?</h2>
-      <p>Book a guided tour or join one of our weekly virtual info sessions.</p>
-    </div>
-    <div style="display:flex;gap:14px;flex-wrap:wrap;">
-      <a href="#" class="btn btn-sky">Schedule a Visit</a>
-      <a href="#" class="btn btn-ghost-light">Apply Now</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== CAMPUS LIFE ===================== -->
-<section id="campus" class="quicklinks">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Campus Life</span>
-        <h2 style="margin-top:8px;">A vibrant student community</h2>
-      </div>
-      <p class="desc">Clubs, events, sports, and opportunities to grow leadership beyond the classroom.</p>
-    </div>
-
-    <div class="ql-grid">
-      <div class="ql-card">
-        <div class="ql-media">
-          <span class="ring"></span>
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9z" stroke="#123B6E" stroke-width="1.6"/>
-            <path d="M4 22c1.5-4.8 6.5-6.5 8-6.5s6.5 1.7 8 6.5" stroke="#123B6E" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="ql-foot">
-          <span class="title">Student Clubs</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-
-      <div class="ql-card">
-        <div class="ql-media">
-          <span class="ring"></span>
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4 20v-8M4 12l4-4 4 4 8-8v16H4z" stroke="#123B6E" stroke-width="1.6" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="ql-foot">
-          <span class="title">Events &amp; Workshops</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-
-      <div class="ql-card">
-        <div class="ql-media">
-          <span class="ring"></span>
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z" stroke="#1a7a3d" stroke-width="1.5"/>
-            <circle cx="12" cy="10" r="2.4" stroke="#1a7a3d" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <div class="ql-foot">
-          <span class="title">Sports &amp; Wellness</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-
-      <div class="ql-card">
-        <div class="ql-media">
-          <span class="ring"></span>
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M20 6L9 17l-5-5" stroke="#a3660f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="ql-foot">
-          <span class="title">Leadership Opportunities</span>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== CONTACT ===================== -->
-<section id="contact" class="cta-strip">
-  <div class="wrap cta-inner">
-    <div>
-      <h2>Contact GITS College</h2>
-      <p>For admissions, academics, and campus life questions — reach out to our team.</p>
-    </div>
-    <div style="display:flex;gap:14px;flex-wrap:wrap;">
-      <a href="mailto:info@gitscollege.edu" class="btn btn-sky">Email Us</a>
-      <a href="tel:+10000000000" class="btn btn-ghost-light">Call Now</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== FOOTER ===================== -->
-<footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="#" class="logo">
-          <span class="logo-mark">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 3L2 8l10 5 8-4.2V15h1.5V8L12 3z" fill="#4FC3F7"/>
-              <path d="M6 12v4.2c0 .3.15.55.4.7C7.9 17.8 9.8 19 12 19s4.1-1.2 5.6-2.1c.25-.15.4-.4.4-.7V12l-6 3-6-3z" fill="#FFFFFF" fill-opacity="0.92"/>
+      switch (name) {
+        case 'sparkles':
+          return (
+            <svg {...common}>
+              <path d="M12 2l1.6 5.2L19 9l-5.4 1.8L12 16l-1.6-5.2L5 9l5.4-1.8L12 2z" stroke={stroke} strokeWidth={sw} strokeLinejoin={ljoin} />
+              <path d="M4 14l.9 2.7L8 18l-3.1 1.3L4 22l-.9-2.7L0 18l3.1-1.3L4 14z" stroke={stroke} strokeWidth={sw} strokeLinejoin={ljoin} opacity="0.75" />
+              <path d="M20 14l.9 2.7L24 18l-3.1 1.3L20 22l-.9-2.7L16 18l3.1-1.3L20 14z" stroke={stroke} strokeWidth={sw} strokeLinejoin={ljoin} opacity="0.75" />
             </svg>
+          );
+        case 'chevron-right':
+          return (
+            <svg {...common}>
+              <path d="M9 18l6-6-6-6" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} strokeLinejoin={ljoin} />
+            </svg>
+          );
+        case 'minus':
+          return (
+            <svg {...common}>
+              <path d="M5 12h14" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} />
+            </svg>
+          );
+        case 'plus':
+          return (
+            <svg {...common}>
+              <path d="M12 5v14" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} />
+              <path d="M5 12h14" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} />
+            </svg>
+          );
+        case 'phone':
+          return (
+            <svg {...common}>
+              <path d="M22 16.9v3a2 2 0 0 1-2.2 2c-9.7-.8-17.5-8.6-18.3-18.3A2 2 0 0 1 3.9 1h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L7.9 9.6a16 16 0 0 0 6.5 6.5l2.2-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9z" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} strokeLinejoin={ljoin} />
+            </svg>
+          );
+        case 'message-circle':
+          return (
+            <svg {...common}>
+              <path d="M21 11.5a8.4 8.4 0 0 1-8.4 8.4c-1.4 0-2.8-.3-4-.9L3 20l.9-5.6c-.6-1.2-.9-2.6-.9-4C3 5.7 6.8 2 11.5 2A8.4 8.4 0 0 1 21 11.5z" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} strokeLinejoin={ljoin} />
+              <path d="M8.2 11.8h.01" stroke={stroke} strokeWidth={sw * 1.2} strokeLinecap={lcap} />
+              <path d="M12 11.8h.01" stroke={stroke} strokeWidth={sw * 1.2} strokeLinecap={lcap} />
+              <path d="M15.8 11.8h.01" stroke={stroke} strokeWidth={sw * 1.2} strokeLinecap={lcap} />
+            </svg>
+          );
+        case 'instagram':
+          return (
+            <svg {...common}>
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke={stroke} strokeWidth={sw} strokeLinejoin={ljoin} />
+              <path d="M16 11.37a4 4 0 1 1-7.9 1.13 4 4 0 0 1 7.9-1.13z" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} strokeLinejoin={ljoin} />
+              <path d="M17.5 6.5h.01" stroke={stroke} strokeWidth={sw * 1.4} strokeLinecap={lcap} />
+            </svg>
+          );
+        case 'shield-check':
+          return (
+            <svg {...common}>
+              <path d="M12 2l8 4v6c0 5.5-3.6 10-8 10s-8-4.5-8-10V6l8-4z" stroke={stroke} strokeWidth={sw} strokeLinejoin={ljoin} />
+              <path d="M9 12l2 2 4-5" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} strokeLinejoin={ljoin} />
+            </svg>
+          );
+        case 'award':
+          return (
+            <svg {...common}>
+              <circle cx="12" cy="8" r="4" stroke={stroke} strokeWidth={sw} />
+              <path d="M6 20c1.2-3.2 3.5-5 6-5s4.8 1.8 6 5" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} strokeLinejoin={ljoin} />
+            </svg>
+          );
+        case 'hand':
+          return (
+            <svg {...common}>
+              <path d="M7 11V6a2 2 0 1 1 4 0v5" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} strokeLinejoin={ljoin} />
+              <path d="M11 11V4a2 2 0 1 1 4 0v7" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} strokeLinejoin={ljoin} />
+              <path d="M15 11V6a2 2 0 1 1 4 0v8c0 4-3 8-8 8-3.4 0-6-1.9-7.2-4.9L2 14a2 2 0 1 1 3.4-1.4L7 15" stroke={stroke} strokeWidth={sw} strokeLinecap={lcap} strokeLinejoin={ljoin} />
+            </svg>
+          );
+        case 'video':
+          return (
+            <svg {...common}>
+              <rect x="3" y="5" width="13" height="14" rx="2" stroke={stroke} strokeWidth={sw} strokeLinejoin={ljoin} />
+              <path d="M16 9l5-2v10l-5-2V9z" stroke={stroke} strokeWidth={sw} strokeLinejoin={ljoin} />
+            </svg>
+          );
+        case 'whatsapp':
+          return (
+            <svg {...common}>
+              <path d="M20 11.5A8.5 8.5 0 0 1 7 18l-3 1 1-3a8.5 8.5 0 1 1 15-4.5z" stroke={stroke} strokeWidth={sw} strokeLinejoin={ljoin} />
+              <path d="M9.2 9.2c.6-1 1.2-.9 1.6-.4l.9 1c.3.4.3.8.1 1.1l-.3.4c-.1.2-.1.4 0 .6.6 1 1.5 1.9 2.5 2.5.2.1.4.1.6 0l.4-.3c.3-.2.7-.2 1.1.1l1 .9c.5.4.6 1 .4 1.6-.3.8-1.1 1.1-1.8 1.1-4.1 0-8.1-4-8.1-8.1 0-.7.3-1.5 1.1-1.8z" fill="currentColor" opacity="0.9" />
+            </svg>
+          );
+        default:
+          return null;
+      }
+    };
+
+    const AccordionItem = ({ title, children, isOpen, onToggle }) => (
+      <div className="rounded-2xl border border-maroon/15 bg-white/80 backdrop-blur p-4">
+        <button
+          className="w-full flex items-center justify-between gap-4"
+          onClick={onToggle}
+          aria-expanded={isOpen}
+        >
+          <span className="font-semibold text-maroon/95 text-left">{title}</span>
+          <span className="w-10 h-10 rounded-xl flex items-center justify-center bg-maroon/5 text-maroon">
+            <Icon name={isOpen ? 'minus' : 'plus'} className="w-5 h-5" />
           </span>
-          <span class="logo-text">
-            <span class="name">GITS College</span>
-          </span>
-        </a>
-        <p>A premium campus community shaping engineers, researchers, and leaders since 1994.</p>
-        <div class="social-row">
-          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9.5c0-.3.2-.5.5-.5z" fill="currentColor"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="1.5"/><circle cx="16.6" cy="7.4" r="1" fill="currentColor"/></svg></a>
-          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M8 10.5v6M8 8v.01M12 16.5v-3.7c0-1.2.9-2.1 2-2.1s2 .9 2 2.1v3.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
-          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="4" stroke="currentColor" stroke-width="1.5"/><path d="M11 10l4 2-4 2v-4z" fill="currentColor"/></svg></a>
+        </button>
+        <div className={`grid transition-all duration-300 ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+          <div className="overflow-hidden">
+            <p className="mt-3 text-sm md:text-base text-maroon/80 leading-relaxed">{children}</p>
+          </div>
         </div>
       </div>
+    );
 
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#academics">Academics</a></li>
-          <li><a href="#admissions">Admissions</a></li>
-          <li><a href="#campus">Campus Life</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
+    const App = () => {
+      const [lang, setLang] = useState('en');
+      const t = T[lang];
+      const [faqOpen, setFaqOpen] = useState('q1');
+      const [form, setForm] = useState({ name: '', phone: '', message: '' });
 
-      <div class="footer-col">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="#">Student Portal</a></li>
-          <li><a href="#">Library</a></li>
-          <li><a href="#">Career Services</a></li>
-          <li><a href="#">Alumni Network</a></li>
-          <li><a href="#">Newsroom</a></li>
-        </ul>
-      </div>
+      const scrollToId = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
 
-      <div class="footer-col">
-        <h4>Visit Campus</h4>
-        <p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;">482 Meridian Avenue<br>Lakeshore District, IN 452001</p>
-        <div class="map-block">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z" stroke="#4FC3F7" stroke-width="1.6"/><circle cx="12" cy="10" r="2.4" stroke="#4FC3F7" stroke-width="1.6"/></svg>
+      const buildWhatsAppText = () => {
+        return [
+          `${lang === 'hi' ? 'नाम' : 'Name'}: ${form.name || '-'}`,
+          `${lang === 'hi' ? 'फोन' : 'Phone'}: ${form.phone || '-'}`,
+          `${lang === 'hi' ? 'आवश्यकता' : 'Requirement'}: ${form.message || '-'}`
+        ].join('\n');
+      };
+
+      const onSubmitWhatsApp = (e) => {
+        e.preventDefault();
+        const text = buildWhatsAppText();
+        const url = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank', 'noreferrer');
+      };
+
+      return (
+        <div>
+          <header className="sticky top-0 z-50 bg-cream/80 backdrop-blur border-b border-maroon/10">
+            <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-maroon/10 text-maroon flex items-center justify-center">
+                  <Icon name="sparkles" className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="font-bold text-maroon/95 leading-tight">Shree Wedding Kalash</div>
+                  <div className="text-xs text-maroon/70">Premium Rajasthani Wedding Decor</div>
+                </div>
+              </div>
+
+              <nav className="hidden md:flex items-center gap-6 text-sm text-maroon/80">
+                <button onClick={() => scrollToId('home')} className="hover:text-maroon/100">{t.nav.home}</button>
+                <button onClick={() => scrollToId('products')} className="hover:text-maroon/100">{t.nav.products}</button>
+                <button onClick={() => scrollToId('gallery')} className="hover:text-maroon/100">{t.nav.gallery}</button>
+                <button onClick={() => scrollToId('about')} className="hover:text-maroon/100">{t.nav.about}</button>
+                <button onClick={() => scrollToId('contact')} className="hover:text-maroon/100">{t.nav.contact}</button>
+              </nav>
+
+              <button
+                className="px-3 py-2 rounded-xl bg-maroon/5 text-maroon/90 text-sm border border-maroon/15"
+                onClick={() => setLang((p) => (p === 'en' ? 'hi' : 'en'))}
+              >
+                {lang === 'en' ? t.nav.lang : 'हि'}
+              </button>
+            </div>
+          </header>
+
+          {/* HERO */}
+          <section id="home" data-section className="py-14">
+            <div className="max-w-6xl mx-auto px-4">
+              <div className="grid lg:grid-cols-2 gap-10 items-center">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 border border-maroon/10 text-maroon/90">
+                    <span className="inline-block w-2 h-2 rounded-full bg-gold" />
+                    <span className="text-sm font-semibold">{t.hero.badge}</span>
+                  </div>
+                  <h1 className="mt-4 text-4xl md:text-5xl font-extrabold text-maroon/95 leading-tight">{t.hero.title}</h1>
+                  <p className="mt-4 text-lg md:text-xl text-maroon/80 leading-relaxed">{t.hero.subtitle}</p>
+
+                  <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                    <button
+                      onClick={() => scrollToId('products')}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-maroon text-cream font-semibold shadow-royal"
+                    >
+                      <Icon name="chevron-right" className="w-5 h-5" />
+                      {t.hero.cta1}
+                    </button>
+
+                    <a
+                      href={`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(lang === 'hi' ? 'नमस्ते! मैं कलश ऑर्डर करना चाहता/चाहती हूँ।' : 'Hello! I want to order a Kalash.')}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl border border-maroon/20 bg-white/60 text-maroon font-semibold"
+                    >
+                      <Icon name="whatsapp" className="w-5 h-5" />
+                      {t.hero.cta2}
+                    </a>
+                  </div>
+
+                  <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {[
+                      { num: 'Custom', lbl: lang === 'hi' ? 'कस्टमाइजेशन' : 'Customization' },
+                      { num: 'Safe', lbl: lang === 'hi' ? 'सेफ पैकिंग' : 'Safe Packing' },
+                      { num: 'Royal', lbl: lang === 'hi' ? 'शाही फिनिशिंग' : 'Royal Finishing' },
+                      { num: 'On-time', lbl: lang === 'hi' ? 'टाइम पर' : 'On-time Delivery' }
+                    ].map((s, i) => (
+                      <div key={i} className="rounded-2xl bg-white/60 border border-maroon/10 px-4 py-3">
+                        <div className="text-maroon/95 font-extrabold">{s.num}</div>
+                        <div className="text-xs text-maroon/70 mt-1">{s.lbl}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <div className="rounded-3xl overflow-hidden border border-maroon/10 bg-white/60 shadow-royal">
+                    <img src="./images/kalash-hero.jpg" alt="Kalash" className="w-full h-[420px] object-cover" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* PRODUCTS */}
+          <section id="products" data-section className="py-14">
+            <div className="max-w-6xl mx-auto px-4">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                <div>
+                  <h2 className="text-3xl font-extrabold text-maroon/95">{t.sections.productsTitle}</h2>
+                  <p className="mt-3 text-maroon/80 text-lg max-w-2xl">{t.sections.productsDesc}</p>
+                </div>
+                <div className="text-sm text-maroon/70">{lang === 'hi' ? 'कस्टमाइजेशन उपलब्ध' : 'Customization available'}</div>
+              </div>
+
+              <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {PRODUCTS.map((p) => (
+                  <div key={p.key} className="rounded-3xl border border-maroon/10 bg-white/70 overflow-hidden">
+                    <div className="h-56 overflow-hidden">
+                      <img
+                        src={p.img}
+                        alt={p.name.en}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-5">
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="font-bold text-maroon/95 text-lg">{lang === 'hi' ? p.name.hi : p.name.en}</h3>
+                        <span className="px-3 py-1 rounded-full bg-maroon/5 text-maroon/80 border border-maroon/15 text-xs font-semibold">
+                          {lang === 'hi' ? p.tag.hi : p.tag.en}
+                        </span>
+                      </div>
+                      <p className="mt-3 text-sm text-maroon/80 leading-relaxed">{lang === 'hi' ? p.desc.hi : p.desc.en}</p>
+
+                      <div className="mt-5">
+                        <a
+                          href={`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(lang === 'hi' ? `नमस्ते! मुझे “${p.name.hi}” चाहिए।` : `Hello! I want “${p.name.en}”.`)}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-maroon text-cream font-semibold"
+                        >
+                          <Icon name="whatsapp" className="w-5 h-5" />
+                          {lang === 'hi' ? 'ऑर्डर करें' : 'Order via WhatsApp'}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ABOUT */}
+          <section id="about" data-section className="py-14">
+            <div className="max-w-6xl mx-auto px-4">
+              <div className="grid lg:grid-cols-2 gap-10 items-center">
+                <div>
+                  <h2 className="text-3xl font-extrabold text-maroon/95">{t.sections.aboutTitle}</h2>
+                  <p className="mt-3 text-maroon/80 text-lg">{t.sections.aboutDesc}</p>
+
+                  <div className="mt-8 grid sm:grid-cols-3 gap-4">
+                    {[
+                      { k: 'handcrafted', icon: 'hand' },
+                      { k: 'authentic', icon: 'award' },
+                      { k: 'delivery', icon: 'shield-check' }
+                    ].map((x) => (
+                      <div key={x.k} className="rounded-3xl border border-maroon/10 bg-white/70 p-4">
+                        <div className="w-11 h-11 rounded-2xl bg-maroon/5 text-maroon flex items-center justify-center">
+                          <Icon name={x.icon} className="w-6 h-6" />
+                        </div>
+                        <div className="mt-3 font-semibold text-maroon/90">{t.aboutBadges[x.k]}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-7 text-sm text-maroon/75 leading-relaxed">
+                    <p>{t.trustCopy.p1}</p>
+                    <p className="mt-2">{t.trustCopy.p2}</p>
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <div className="rounded-3xl overflow-hidden border border-maroon/10 bg-white/60 shadow-royal">
+                    <img src="./images/kalash-pair.jpg" alt="Kalash pair" className="w-full h-[420px] object-cover" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* GALLERY */}
+          <section id="gallery" data-section className="py-14">
+            <div className="max-w-6xl mx-auto px-4">
+              <h2 className="text-3xl font-extrabold text-maroon/95">{t.sections.galleryTitle}</h2>
+              <p className="mt-3 text-maroon/80 text-lg max-w-2xl">{t.sections.galleryDesc}</p>
+
+              <div className="mt-10 grid md:grid-cols-3 gap-6">
+                {[
+                  { src: './images/kalash-mirror.jpg', label: lang === 'hi' ? 'मिरर & शिल्प' : 'Mirror & Craft' },
+                  { src: './images/kalash-velvet.jpg', label: lang === 'hi' ? 'डिज़ाइनर' : 'Designer' },
+                  { src: './images/kalash-hero.jpg', label: lang === 'hi' ? 'पारंपरिक' : 'Traditional' }
+                ].map((g, i) => (
+                  <div key={i} className="rounded-3xl overflow-hidden border border-maroon/10 bg-white/60">
+                    <img src={g.src} alt={g.label} className="w-full h-64 object-cover" />
+                    <div className="p-4">
+                      <div className="text-sm font-semibold text-maroon/90">{g.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 rounded-3xl border border-maroon/10 bg-white/60 p-6 flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-maroon/5 text-maroon flex items-center justify-center">
+                  <Icon name="video" className="w-6 h-6" />
+                </div>
+                <div>
+                  <div className="font-bold text-maroon/95">{t.gallery.comingSoon}</div>
+                  <div className="text-sm text-maroon/75 mt-1">{t.gallery.comingSoonSub}</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="py-14" aria-label="FAQ">
+            <div className="max-w-6xl mx-auto px-4">
+              <h2 className="text-3xl font-extrabold text-maroon/95">{t.sections.faqTitle}</h2>
+              <div className="mt-8 grid gap-4">
+                <AccordionItem title={t.faq.q1} isOpen={faqOpen === 'q1'} onToggle={() => setFaqOpen('q1')}>{t.faq.a1}</AccordionItem>
+                <AccordionItem title={t.faq.q2} isOpen={faqOpen === 'q2'} onToggle={() => setFaqOpen('q2')}>{t.faq.a2}</AccordionItem>
+                <AccordionItem title={t.faq.q3} isOpen={faqOpen === 'q3'} onToggle={() => setFaqOpen('q3')}>{t.faq.a3}</AccordionItem>
+                <AccordionItem title={t.faq.q4} isOpen={faqOpen === 'q4'} onToggle={() => setFaqOpen('q4')}>{t.faq.a4}</AccordionItem>
+              </div>
+            </div>
+          </section>
+
+          {/* CONTACT */}
+          <section id="contact" data-section className="py-14">
+            <div className="max-w-6xl mx-auto px-4">
+              <div className="grid lg:grid-cols-2 gap-10 items-start">
+                <div>
+                  <h2 className="text-3xl font-extrabold text-maroon/95">{t.sections.contactTitle}</h2>
+                  <p className="mt-3 text-maroon/80 text-lg">{t.sections.contactDesc}</p>
+
+                  <div className="mt-6 space-y-3 text-maroon/80">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-2xl bg-maroon/5 text-maroon flex items-center justify-center">
+                        <Icon name="phone" className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <div className="font-semibold">{t.contact.mapHint}</div>
+                        <div className="text-sm">{t.footer.address}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-2xl bg-maroon/5 text-maroon flex items-center justify-center">
+                        <Icon name="message-circle" className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <div className="font-semibold">WhatsApp</div>
+                        <div className="text-sm">+91 {WHATSAPP_NUM}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-3xl border border-maroon/10 bg-white/70 p-6">
+                  <form onSubmit={onSubmitWhatsApp} className="space-y-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <label className="block">
+                        <div className="text-sm font-semibold text-maroon/85">{t.contact.name}</div>
+                        <input
+                          value={form.name}
+                          onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
+                          className="mt-2 w-full px-4 py-3 rounded-2xl border border-maroon/15 bg-cream/40 outline-none focus:ring-2 focus:ring-maroon/20"
+                          placeholder={lang === 'hi' ? 'अपना नाम' : 'Your name'}
+                          required
+                        />
+                      </label>
+                      <label className="block">
+                        <div className="text-sm font-semibold text-maroon/85">{t.contact.phone}</div>
+                        <input
+                          value={form.phone}
+                          onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
+                          className="mt-2 w-full px-4 py-3 rounded-2xl border border-maroon/15 bg-cream/40 outline-none focus:ring-2 focus:ring-maroon/20"
+                          placeholder={lang === 'hi' ? 'फोन नंबर' : 'Phone number'}
+                          required
+                        />
+                      </label>
+                    </div>
+
+                    <label className="block">
+                      <div className="text-sm font-semibold text-maroon/85">{t.contact.message}</div>
+                      <textarea
+                        value={form.message}
+                        onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
+                        className="mt-2 w-full min-h-[120px] px-4 py-3 rounded-2xl border border-maroon/15 bg-cream/40 outline-none focus:ring-2 focus:ring-maroon/20"
+                        placeholder={lang === 'hi' ? 'इवेंट डेट, मात्रा, और पसंदीदा स्टाइल लिखें' : 'Write event date, quantity, and preferred style'}
+                        required
+                      />
+                    </label>
+
+                    <button type="submit" className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-maroon text-cream font-semibold shadow-royal">
+                      <Icon name="whatsapp" className="w-5 h-5" />
+                      {t.contact.send}
+                    </button>
+
+                    <div className="text-xs text-maroon/65 leading-relaxed">
+                      {lang === 'hi' ? 'क्लिक करते ही WhatsApp चैट खुल जाएगी।' : 'Clicking will open your WhatsApp chat with the message.'}
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <footer className="py-10 border-t border-maroon/10">
+            <div className="max-w-6xl mx-auto px-4">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                  <div className="font-bold text-maroon/95">{t.footer.tagline}</div>
+                  <div className="text-sm text-maroon/70 mt-2">{t.footer.address}</div>
+                  <div className="text-sm text-maroon/70 mt-1">{t.footer.phone}</div>
+                </div>
+                <div className="flex gap-3">
+                  <a href="#" className="w-11 h-11 rounded-2xl border border-maroon/15 bg-white/60 text-maroon flex items-center justify-center inline-flex" aria-label="Instagram">
+                    <Icon name="instagram" className="w-6 h-6" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </footer>
         </div>
-      </div>
-    </div>
+      );
+    };
 
-    <div class="footer-bottom">
-      <span>© 2026 GITS College. All rights reserved.</span>
-      <div class="legal-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
-        <a href="#">Accessibility</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
 </body>
 </html>
+
