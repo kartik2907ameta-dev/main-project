@@ -1,0 +1,9 @@
+Add these files into this folder with EXACT filenames (including spelling and extension):
+
+- kalash-pair.jpg
+- kalash-hero.jpg
+- kalash-mirror.jpg
+- kalash-velvet.jpg
+
+Current index.html loads them via ./images/kalash-*.jpg.
+
